@@ -2,6 +2,7 @@ package ch.zli.m223.punchclock.controller;
 
 import ch.zli.m223.punchclock.domain.User;
 import ch.zli.m223.punchclock.service.UserService;
+import io.quarkus.security.Authenticated;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+@Authenticated
 @Path("/users")
 @Tag(name = "Users", description = "Handles user interactions")
 public class UserController {

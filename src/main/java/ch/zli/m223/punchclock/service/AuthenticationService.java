@@ -21,13 +21,13 @@ public class AuthenticationService {
         }
 
         User user = userService.findByUsername(username);
-
         user.setToken(Jwt.issuer("https://zli.ch/issuer")
                 .upn(username)
-                .groups(new HashSet<>(Arrays.asList("User", "Admin")))
+                .groups(new HashSet<>(Arrays.asList(user.getRole())))
                 .claim(Claims.birthdate.name(), "2001-07-13")
                 .expiresIn(Duration.ofHours(2))
                 .sign());
+
 
         user.setPassword("");
         return user;

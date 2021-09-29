@@ -10,6 +10,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+
+@Authenticated
 @Path("/projects")
 @Tag(name = "projects", description = "Handling of categories")
 public class ProjectController {
@@ -32,14 +34,12 @@ public class ProjectController {
 
     @DELETE
     @Path("/{id}")
-    @Authenticated
     public void delete(@PathParam("id") Long id) {
         projectService.delete(id);
     }
 
     @Path("/{id}")
     @PUT
-    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Project update(Project Project, @PathParam("id") Long id) {
@@ -47,7 +47,6 @@ public class ProjectController {
     }
 
     @POST
-    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Project add(Project Project) {

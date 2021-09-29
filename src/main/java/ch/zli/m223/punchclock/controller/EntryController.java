@@ -10,6 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+@Authenticated
 @Path("/entries")
 @Tag(name = "Entries", description = "Handling of entries")
 public class EntryController {
@@ -31,14 +32,12 @@ public class EntryController {
     }
 
     @Path("/{id}")
-    @Authenticated
     @DELETE
     public void delete(@PathParam("id") Long id) {
         entryService.delete(id);
     }
 
     @Path("/{id}")
-    @Authenticated
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -47,7 +46,6 @@ public class EntryController {
     }
 
     @POST
-    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Entry add(Entry entry) {

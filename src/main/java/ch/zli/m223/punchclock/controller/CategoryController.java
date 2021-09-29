@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+@Authenticated
 @Path("/categories")
 @Tag(name = "categories", description = "Handling of categories")
 public class CategoryController {
@@ -40,14 +41,12 @@ public class CategoryController {
 
     @DELETE
     @Path("/{id}")
-    @Authenticated
     public void delete(@PathParam("id") Long id) {
         CategoryService.delete(id);
     }
 
     @Path("/{id}")
     @PUT
-    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Category update(Category category, @PathParam("id") Long id) {
@@ -55,7 +54,6 @@ public class CategoryController {
     }
 
     @POST
-    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Category add(Category category) {
