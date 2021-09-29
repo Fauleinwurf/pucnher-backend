@@ -1,5 +1,6 @@
 package ch.zli.m223.punchclock.service;
 
+import ch.zli.m223.punchclock.domain.Entry;
 import ch.zli.m223.punchclock.domain.User;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,6 +16,9 @@ public class UserService {
     @Inject
     private EntityManager entityManager;
 
+    @Inject
+    private EntryService entryService;
+
     public UserService() {
     }
 
@@ -26,7 +30,11 @@ public class UserService {
 
     @Transactional
     public void delete(Long id) {
-        entityManager.remove(findById(id));
+        User entityToRemove = findById(id);
+        for (Entry entry : entityToRemove.getEntries()) {
+            entityManager.remove(entryService.findById(entry.getId()));
+        }
+        entityManager.remove(entityToRemove);
     }
 
     @Transactional

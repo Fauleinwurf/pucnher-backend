@@ -16,6 +16,9 @@ public class CategoryService {
     @Inject
     private EntityManager entityManager;
 
+    @Inject
+    private ProjectService projectService;
+
     public CategoryService() {
     }
 
@@ -27,6 +30,10 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
+        Category entityToRemove = findById(id);
+        for (Project project : entityToRemove.getProjects()) {
+            entityManager.remove(projectService.findById(project.getId()));
+        }
         entityManager.remove(findById(id));
     }
 
