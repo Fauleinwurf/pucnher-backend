@@ -10,8 +10,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/categories")
-@Tag(name = "categories", description = "Handling of categories")
+@Path("/projects")
+@Tag(name = "projects", description = "Handling of categories")
 public class ProjectController {
 
     @Inject

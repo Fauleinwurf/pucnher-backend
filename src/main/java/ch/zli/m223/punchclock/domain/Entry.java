@@ -22,10 +22,8 @@ public class Entry {
     private LocalDateTime checkOut;
 
     @ManyToOne
-    @Column(nullable = false)
     private Project project;
 
     @ManyToOne
-    @Column(nullable = false)
     private User user;
 }

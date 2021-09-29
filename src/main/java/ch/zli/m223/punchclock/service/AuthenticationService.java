@@ -16,7 +16,7 @@ public class AuthenticationService {
     UserService userService;
 
     public User GenerateValidJwtToken(String username, String password) {
-        if (!authenticationValid(username, password)) {
+        if (!credentialsValid(username, password)) {
             throw new IllegalArgumentException("Username or password are wrong");
         }
 
@@ -26,13 +26,14 @@ public class AuthenticationService {
                 .upn(username)
                 .groups(new HashSet<>(Arrays.asList("User", "Admin")))
                 .claim(Claims.birthdate.name(), "2001-07-13")
-                .expiresIn(Duration.ofHours(1))
+                .expiresIn(Duration.ofHours(2))
                 .sign());
 
+        user.setPassword("");
         return user;
     }
 
-    public boolean authenticationValid(String username, String password) {
+    public boolean credentialsValid(String username, String password) {
         return userService.findByUsername(username).getPassword().equals(password);
     }
 

@@ -20,7 +20,6 @@ public class Project {
     private String title;
 
     @ManyToOne
-    @Column(nullable = false)
     private Category category;
 
     @JsonIgnore
