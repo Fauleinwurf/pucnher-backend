@@ -1,6 +1,7 @@
 package ch.zli.m223.punchclock.service;
 
 import ch.zli.m223.punchclock.domain.Category;
+import ch.zli.m223.punchclock.domain.Project;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -35,9 +36,8 @@ public class CategoryService {
         return entityManager.merge(category);
     }
 
-    @Transactional
     public Category findById(Long id) {
-        return ensureCategoryExists(id);
+        return ensuredFindById(id);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,12 +52,16 @@ public class CategoryService {
         }
     }
 
-    private Category ensureCategoryExists(Long id) {
+    private Category ensuredFindById(Long id) {
         Category category = entityManager.find(Category.class, id);
         if (category == null) {
             throw new EntityNotFoundException("Can't find Category for ID "
                     + id);
         }
         return category;
+    }
+
+    public List<Project> findProjectsByCategory(Long id) {
+        return ensuredFindById(id).getProjects();
     }
 }

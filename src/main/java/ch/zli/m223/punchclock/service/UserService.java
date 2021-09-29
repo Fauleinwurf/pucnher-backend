@@ -35,12 +35,10 @@ public class UserService {
         return entityManager.merge(user);
     }
 
-    @Transactional
     public User findById(Long id) {
         return ensureUserExists(id);
     }
 
-    @Transactional
     public User findByUsername(String username) {
         System.out.println(username);
         return entityManager.createQuery(

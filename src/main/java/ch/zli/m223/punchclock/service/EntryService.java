@@ -39,7 +39,6 @@ public class EntryService {
         return entityManager.merge(entry);
     }
 
-    @Transactional
     public Entry findById(Long id){
         return ensureEntryExists(id);
     }

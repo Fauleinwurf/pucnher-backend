@@ -1,6 +1,7 @@
 package ch.zli.m223.punchclock.controller;
 
 import ch.zli.m223.punchclock.domain.Category;
+import ch.zli.m223.punchclock.domain.Project;
 import ch.zli.m223.punchclock.service.CategoryService;
 import io.quarkus.security.Authenticated;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -28,6 +29,13 @@ public class CategoryController {
     @Produces(MediaType.APPLICATION_JSON)
     public Category findById(@PathParam("id") Long id) {
         return CategoryService.findById(id);
+    }
+
+    @Path("/{id}/projects")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Project> findProjectsByCategory(@PathParam("id") Long id) {
+        return CategoryService.findProjectsByCategory(id);
     }
 
     @DELETE

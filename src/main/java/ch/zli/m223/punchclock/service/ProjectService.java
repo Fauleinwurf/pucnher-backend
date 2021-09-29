@@ -35,7 +35,6 @@ public class ProjectService {
         return entityManager.merge(project);
     }
 
-    @Transactional
     public Project findById(Long id) {
         return ensureProjectExists(id);
     }
