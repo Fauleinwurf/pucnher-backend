@@ -3,7 +3,6 @@ package ch.zli.m223.punchclock.controller;
 import ch.zli.m223.punchclock.domain.Category;
 import ch.zli.m223.punchclock.service.CategoryService;
 import io.quarkus.security.Authenticated;
-import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.inject.Inject;
@@ -20,7 +19,6 @@ public class CategoryController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Lists all Entries", description = "")
     public List<Category> list() {
         return CategoryService.findAll();
     }
@@ -28,7 +26,6 @@ public class CategoryController {
     @Path("/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Lists an Category with a specific id", description = "")
     public Category findById(@PathParam("id") Long id) {
         return CategoryService.findById(id);
     }
@@ -36,9 +33,8 @@ public class CategoryController {
     @DELETE
     @Path("/{id}")
     @Authenticated
-    @Operation(summary = "Deletes an Category", description = "")
     public void delete(@PathParam("id") Long id) {
-        CategoryService.deleteCategory(id);
+        CategoryService.delete(id);
     }
 
     @Path("/{id}")
@@ -46,18 +42,16 @@ public class CategoryController {
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Updates an Category with a specific id", description = "")
-    public Category update(Category Category, @PathParam("id") Long id) {
-        return CategoryService.updateCategory(Category, id);
+    public Category update(Category category, @PathParam("id") Long id) {
+        return CategoryService.update(category, id);
     }
 
     @POST
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Add a new Category", description = "The newly created Category is returned. The id may not be passed.")
-    public Category add(Category Category) {
-        return CategoryService.createCategory(Category);
+    public Category add(Category category) {
+        return CategoryService.create(category);
     }
 
 }

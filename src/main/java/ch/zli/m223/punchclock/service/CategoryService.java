@@ -19,20 +19,20 @@ public class CategoryService {
     }
 
     @Transactional
-    public Category createCategory(Category Category) {
-        entityManager.persist(Category);
-        return Category;
+    public Category create(Category category) {
+        entityManager.persist(category);
+        return category;
     }
 
     @Transactional
-    public void deleteCategory(Long id) {
+    public void delete(Long id) {
         entityManager.remove(findById(id));
     }
 
     @Transactional
-    public Category updateCategory(Category Category, Long id) {
-        this.ensureIdMatches(Category, id);
-        return entityManager.merge(Category);
+    public Category update(Category category, Long id) {
+        this.ensureIdMatches(category, id);
+        return entityManager.merge(category);
     }
 
     @Transactional
@@ -46,18 +46,18 @@ public class CategoryService {
         return query.getResultList();
     }
 
-    private void ensureIdMatches(Category Category, Long CategoryId) {
-        if (!Objects.equals(Category.getId(), CategoryId)) {
+    private void ensureIdMatches(Category category, Long CategoryId) {
+        if (!Objects.equals(category.getId(), CategoryId)) {
             throw new IllegalArgumentException("Id of URL and Category don't match");
         }
     }
 
     private Category ensureCategoryExists(Long id) {
-        Category Category = entityManager.find(Category.class, id);
-        if (Category == null) {
+        Category category = entityManager.find(Category.class, id);
+        if (category == null) {
             throw new EntityNotFoundException("Can't find Category for ID "
                     + id);
         }
-        return Category;
+        return category;
     }
 }

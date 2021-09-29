@@ -1,31 +1,29 @@
 package ch.zli.m223.punchclock.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Entry {
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime checkIn;
-
-    @Column(nullable = false)
-    private LocalDateTime checkOut;
+    private String title;
 
     @ManyToOne
     @Column(nullable = false)
-    private Project project;
+    private Category category;
 
-    @ManyToOne
-    @Column(nullable = false)
-    private User user;
+    @JsonIgnore
+    @OneToMany(mappedBy = "project")
+    private List<Entry> entries;
 }

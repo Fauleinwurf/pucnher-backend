@@ -23,7 +23,6 @@ public class AuthenticationController {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Operation(summary = "Authenticate a user", description = "")
     public User login(User user) {
         return authenticationService.GenerateValidJwtToken(user.getUsername(), user.getPassword());
     }

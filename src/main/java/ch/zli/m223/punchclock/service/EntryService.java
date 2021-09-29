@@ -20,7 +20,7 @@ public class EntryService {
     }
 
     @Transactional
-    public Entry createEntry(Entry entry) {
+    public Entry create(Entry entry) {
         if (entry.getCheckIn().isAfter(entry.getCheckOut())) {
             throw new IllegalArgumentException("The checkout time can't be before the checkin time");
         }
@@ -29,12 +29,12 @@ public class EntryService {
     }
 
     @Transactional
-    public void deleteEntry(Long id) {
+    public void delete(Long id) {
         entityManager.remove(findById(id));
     }
 
     @Transactional
-    public Entry updateEntry(Entry entry, Long id) {
+    public Entry update(Entry entry, Long id) {
         this.ensureIdMatches(entry, id);
         return entityManager.merge(entry);
     }
@@ -50,8 +50,8 @@ public class EntryService {
         return query.getResultList();
     }
 
-    private void ensureIdMatches(Entry entry, Long entryId){
-        if (!Objects.equals(entry.getId(), entryId)){
+    private void ensureIdMatches(Entry entry, Long id){
+        if (!Objects.equals(entry.getId(), id)){
             throw new IllegalArgumentException("Id of URL and ENTRY don't match");
         }
     }

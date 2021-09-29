@@ -19,20 +19,20 @@ public class UserService {
     }
 
     @Transactional
-    public User createUser(User User) {
-        entityManager.persist(User);
-        return User;
+    public User create(User user) {
+        entityManager.persist(user);
+        return user;
     }
 
     @Transactional
-    public void deleteUser(Long id) {
+    public void delete(Long id) {
         entityManager.remove(findById(id));
     }
 
     @Transactional
-    public User updateUser(User User, Long id) {
-        this.ensureIdMatches(User, id);
-        return entityManager.merge(User);
+    public User update(User user, Long id) {
+        this.ensureIdMatches(user, id);
+        return entityManager.merge(user);
     }
 
     @Transactional
@@ -54,18 +54,18 @@ public class UserService {
         return query.getResultList();
     }
 
-    private void ensureIdMatches(User User, Long UserId) {
-        if (!Objects.equals(User.getId(), UserId)) {
+    private void ensureIdMatches(User user, Long id) {
+        if (!Objects.equals(user.getId(), id)) {
             throw new IllegalArgumentException("Id of URL and User don't match");
         }
     }
 
     private User ensureUserExists(Long id) {
-        User User = entityManager.find(User.class, id);
-        if (User == null) {
+        User user = entityManager.find(User.class, id);
+        if (user == null) {
             throw new EntityNotFoundException("Can't find User for ID "
                     + id);
         }
-        return User;
+        return user;
     }
 }
