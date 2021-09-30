@@ -12,8 +12,6 @@ INSERT INTO project (title, category_id)
 VALUES ('punchclock1', 1);
 INSERT INTO project (title, category_id)
 VALUES ('punchclock2', 1);
-INSERT INTO project (title, category_id)
-VALUES ('punchclock3', 1);
 
 INSERT INTO project (title, category_id)
 VALUES ('Repair-Computer', 2);
