@@ -53,6 +53,10 @@ public class UserService {
                 setParameter("username", username).getSingleResult();
     }
 
+    public List<User> findAllUsersWherePasswordIsLongerThanMaxLength(int maxLength) {
+        return entityManager.createQuery("From User user GROUP BY user.username HAVING (LENGTH(user.password)) > :maxLength").setParameter("maxLength", maxLength).getResultList();
+    }
+
     @SuppressWarnings("unchecked")
     public List<User> findAll() {
         var query = entityManager.createQuery("FROM User");

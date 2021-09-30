@@ -22,8 +22,15 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     @Operation(summary = "Returns a list of all users")
     public List<User> list() {
-        System.out.println(this.userservice.findUsersIfPasswordIsShorterThan6Characters());
         return userservice.findAll();
+    }
+
+    @GET
+    @Path("/password-maxLength/{maxLength}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Returns a list of all users where the password is longer than the provided maxLength")
+    public List<User> listWherePasswordIsLongerThan6Character(@PathParam("maxLength") int maxLength) {
+        return userservice.findAllUsersWherePasswordIsLongerThanMaxLength(maxLength);
     }
 
     @GET
