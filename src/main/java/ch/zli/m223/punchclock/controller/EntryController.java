@@ -3,6 +3,7 @@ package ch.zli.m223.punchclock.controller;
 import ch.zli.m223.punchclock.domain.Entry;
 import ch.zli.m223.punchclock.service.EntryService;
 import io.quarkus.security.Authenticated;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.inject.Inject;
@@ -20,27 +21,31 @@ public class EntryController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Returns a list of all entries")
     public List<Entry> list() {
         return entryService.findAll();
     }
 
-    @Path("/{id}")
     @GET
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Returns a entry by the provided id in the url")
     public Entry findById(@PathParam("id") Long id) {
         return entryService.findById(id);
     }
 
-    @Path("/{id}")
     @DELETE
+    @Path("/{id}")
+    @Operation(summary = "Deletes a entry by the provided id in the url")
     public void delete(@PathParam("id") Long id) {
         entryService.delete(id);
     }
 
-    @Path("/{id}")
     @PUT
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Updates and returns the entry provided in the request-body, if its id matches the id in the url")
     public Entry update(Entry entry, @PathParam("id") Long id) {
         return entryService.update(entry, id);
     }
@@ -48,6 +53,7 @@ public class EntryController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Inserts and returns the entry provided in the request-body")
     public Entry add(Entry entry) {
         return entryService.create(entry);
     }

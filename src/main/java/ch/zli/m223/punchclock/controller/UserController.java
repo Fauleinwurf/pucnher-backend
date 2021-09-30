@@ -3,6 +3,7 @@ package ch.zli.m223.punchclock.controller;
 import ch.zli.m223.punchclock.domain.User;
 import ch.zli.m223.punchclock.service.UserService;
 import io.quarkus.security.Authenticated;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.inject.Inject;
@@ -19,29 +20,34 @@ public class UserController {
     @GET
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Returns a list of all users")
     public List<User> list() {
+        System.out.println(this.userservice.findUsersIfPasswordIsShorterThan6Characters());
         return userservice.findAll();
     }
 
-    @Path("/{id}")
     @GET
+    @Path("/{id}")
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Returns a user by the provided id in the url")
     public User findById(@PathParam("id") Long id) {
         return userservice.findById(id);
     }
 
-    @Path("/{username}")
     @GET
+    @Path("/username/{username}")
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Returns a user by the provided username in the url")
     public User findByUsername(@PathParam("username") String username) {
         return userservice.findByUsername(username);
     }
 
     @DELETE
-    @Authenticated
     @Path("/{id}")
+    @Authenticated
+    @Operation(summary = "Deletes a user by the provided id in the url")
     public void delete(@PathParam("id") Long id) {
         userservice.delete(id);
     }
@@ -51,6 +57,7 @@ public class UserController {
     @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Updates and returns the user provided in the request-body, if its id matches the id in the url")
     public User update(User user, @PathParam("id") Long id) {
         return userservice.update(user, id);
     }
@@ -58,6 +65,7 @@ public class UserController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @Operation(summary = "Inserts and returns the project provided in the request-body")
     public User add(User user) {
         return userservice.create(user);
     }
