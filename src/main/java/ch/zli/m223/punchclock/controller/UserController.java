@@ -10,7 +10,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Authenticated
 @Path("/users")
 @Tag(name = "Users", description = "Handles user interactions")
 public class UserController {
@@ -18,6 +17,7 @@ public class UserController {
     UserService userservice;
 
     @GET
+    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> list() {
         return userservice.findAll();
@@ -25,6 +25,7 @@ public class UserController {
 
     @Path("/{id}")
     @GET
+    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     public User findById(@PathParam("id") Long id) {
         return userservice.findById(id);
@@ -32,12 +33,14 @@ public class UserController {
 
     @Path("/{username}")
     @GET
+    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     public User findByUsername(@PathParam("username") String username) {
         return userservice.findByUsername(username);
     }
 
     @DELETE
+    @Authenticated
     @Path("/{id}")
     public void delete(@PathParam("id") Long id) {
         userservice.delete(id);
@@ -45,6 +48,7 @@ public class UserController {
 
     @PUT
     @Path("/{id}")
+    @Authenticated
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public User update(User user, @PathParam("id") Long id) {

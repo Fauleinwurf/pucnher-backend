@@ -48,7 +48,6 @@ public class UserService {
     }
 
     public User findByUsername(String username) {
-        System.out.println(username);
         return entityManager.createQuery(
                         "SELECT u from User u WHERE u.username = :username", User.class).
                 setParameter("username", username).getSingleResult();
