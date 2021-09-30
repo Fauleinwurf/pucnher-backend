@@ -22,6 +22,6 @@ INSERT INTO entry (checkin, checkout, project_id, user_id)
 VALUES ('2021-09-22 13:21:58.737', '2021-09-22T13:22:58.737', 1, 1);
 
 INSERT INTO entry (checkin, checkout, project_id, user_id)
-VALUES ('2021-09-22 13:21:58.737', '2021-09-22T13:22:58.737', 4, 1);
+VALUES ('2021-09-22 13:21:58.737', '2021-09-22T13:22:58.737', 3, 1);
 
 
