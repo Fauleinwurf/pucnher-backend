@@ -1,6 +1,7 @@
 package ch.zli.m223.punchclock.service;
 
 import ch.zli.m223.punchclock.domain.Category;
+import ch.zli.m223.punchclock.domain.Entry;
 import ch.zli.m223.punchclock.domain.Project;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -19,6 +20,9 @@ public class CategoryService {
     @Inject
     private ProjectService projectService;
 
+    @Inject
+    private EntryService entryService;
+
     public CategoryService() {
     }
 
@@ -32,6 +36,9 @@ public class CategoryService {
     public void delete(Long id) {
         Category entityToRemove = findById(id);
         for (Project project : entityToRemove.getProjects()) {
+            for (Entry entry : project.getEntries()) {
+                entityManager.remove(entryService.findById(entry.getId()));
+            }
             entityManager.remove(projectService.findById(project.getId()));
         }
         entityManager.remove(findById(id));
